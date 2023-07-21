@@ -9,7 +9,10 @@ fn main(){
     loop {
         let mut num = String::new();
         io::stdin().read_line(&mut num).expect("I can't read the number");
-        let num:u32 = num.trim().parse().expect("It's not a number! Please enter a number to me!");
+        let num:u32 = match num.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
         match num.cmp(&unknown_number) {
             Ordering::Less => println!("It's too small! Guess again!"),
             Ordering::Equal => {
